@@ -29,12 +29,9 @@ def webhook():
     print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
-    res.send(r)
     return r
 
 def makeWebhookResult(req):
-    if req.get("result").get("action") != "shipping.cost":
-        return {}
     result = req.get("result")
     parameters = result.get("parameters")
     zone = parameters.get("protein")
