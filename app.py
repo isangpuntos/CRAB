@@ -34,7 +34,9 @@ def webhook():
 
 
 def processRequest(req):
-    protein = req.get("result").get("parameters").get("protein")
+    result = req.get("result")
+    protein = result.get("parameters").get("protein")
+    print (result)
     print (protein)
     print ("result protein")
 
