@@ -16,7 +16,6 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-print ("start na!")
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
@@ -24,60 +23,24 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
+    res = makeWebhookResult(req)
 
     res = json.dumps(res, indent=4)
-    # print(res)
+    print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
 
-
-def processRequest(req):
-    result = req.get("result")
-    protein = result.get("parameters").get("protein")
-    print (result)
-    print (protein)
-    print ("result protein")
-
-
-def makeYqlQuery(req):
+def makeWebhookResult(req):
+    if req.get("result").get("action") != "shipping.cost":
+        return {}
     result = req.get("result")
     parameters = result.get("parameters")
-    city = parameters.get("geo-city")
-    if city is None:
-        return None
+    zone = parameters.get("protein")
 
-    return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
+    cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
 
-
-def makeWebhookResult(data):
-    query = data.get('query')
-    if query is None:
-        return {}
-
-    result = query.get('results')
-    if result is None:
-        return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
-
-    # print(json.dumps(item, indent=4))
-
-    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+    speech = zone
 
     print("Response:")
     print(speech)
@@ -85,10 +48,11 @@ def makeWebhookResult(data):
     return {
         "speech": speech,
         "displayText": speech,
-        # "data": data,
+        #"data": {},
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "apiai-onlinestore-shipping"
     }
+
 
 
 if __name__ == '__main__':
