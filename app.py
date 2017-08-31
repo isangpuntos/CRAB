@@ -36,7 +36,7 @@ def webhook():
 def processRequest(req):
     protein = req.get("result").get("protein")
     if req.get("result").get("protein") != "":
-        print protein
+        print (protein)
 
 
 def makeYqlQuery(req):
