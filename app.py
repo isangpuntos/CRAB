@@ -95,8 +95,8 @@ def parseHtml(url):
     for article in searchContainer:
         print("dish")
         dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
-        print("listDish")
         listDish += dish[0].text.strip().encode("utf-8") + "\n"
+        print(listDish)
 
     print("6")
     if listDish.strip() == "You may try the following:":
