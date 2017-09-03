@@ -44,7 +44,7 @@ def makeWebhookResult(req):
     url = "http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re"
 
     print(url)
-    speech = parseHtml(url)
+    speech = protein#parseHtml(url)
 
     print("Response:")
     print(speech)
