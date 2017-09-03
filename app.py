@@ -81,17 +81,23 @@ def parseHtml(url):
     return listDish
 '''
 def parseHtml(url):
+    print("1")
     listDish = "You may try the following:\n\n"
+    print("2")
     page = requests.get(url)
+    print("3")
     tree = html.fromstring(page.content)
+    print("4")
     searchContainer = tree.xpath("//body/div[@class='site-container']/div[@class='site-inner']/div[@class='content-sidebar-wrap']/main[@class='content']/article")
     
+    print("5")
     for article in searchContainer:
         dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
         listDish += dish[0].text.strip().encode("utf-8") + "\n"
     if listDish.strip() == "You may try the following:":
         listDish = "Cannot find any recipe"
 
+    print("6")
     return listDish
 
 if __name__ == '__main__':
