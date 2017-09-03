@@ -42,7 +42,7 @@ def makeWebhookResult(req):
     vegetable = parameters.get("vegetable")
     print(vegetable + " " + "vegetable")
     dishtype = parameters.get("dish-type")
-    print(dishtype + " " + "dish-type")
+    print("http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re")
 
     url = "http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re"
 
