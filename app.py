@@ -23,8 +23,8 @@ app = Flask(__name__)
 def webhook():
     req = request.get_json(silent=True, force=True)
 
-    print("Request:")
-    print(json.dumps(req, indent=4))
+    #print("Request:")
+    #print(json.dumps(req, indent=4))
 
     res = makeWebhookResult(req)
 
@@ -38,8 +38,11 @@ def makeWebhookResult(req):
     result = req.get("result")
     parameters = result.get("parameters")
     protein = parameters.get("protein")
+    print(protein)
     vegetable = parameters.get("vegetable")
+    print(vegetable + " " + "vegetable")
     dishtype = parameters.get("dish-type")
+    print(dishtype + " " + "dish-type")
 
     url = "http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re"
 
