@@ -92,6 +92,7 @@ def parseHtml(url):
     searchContainer = tree.xpath("//body/div[@class='site-container']/div[@class='site-inner']/div[@class='content-sidebar-wrap']/main[@class='content']/article")
     
     print("5")
+    print(searchContainer[0].text)
     for article in searchContainer:
         print("dish")
         dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
