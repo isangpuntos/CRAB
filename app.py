@@ -38,13 +38,10 @@ def makeWebhookResult(req):
     result = req.get("result")
     parameters = result.get("parameters")
     protein = parameters.get("protein")
-    print(protein)
     vegetable = parameters.get("vegetable")
-    print(vegetable + " " + "vegetable")
     dishtype = parameters.get("dish-type")
-    print("http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re")
 
-    url = "http://panlasangpinoy.com/?s=" + protein + "+" + vegetables + "+" + dishtype + "&sort=re"
+    url = "http://panlasangpinoy.com/?s=" + protein + "+" + vegetable + "+" + dishtype + "&sort=re"
 
     print(url)
     speech = protein#parseHtml(url)
