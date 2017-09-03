@@ -46,7 +46,7 @@ def makeWebhookResult(req):
     speech = parseHtml(url)
 
     print("Response:")
-    print(speech)
+    print(url)
 
     return {
         "speech": speech,
