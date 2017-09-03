@@ -14,6 +14,7 @@ from flask import request
 from flask import make_response
 from lxml import html
 from io import StringIO, BytesIO
+import requests
 
 # Flask app should start in global layout
 app = Flask(__name__)
