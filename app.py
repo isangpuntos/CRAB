@@ -58,17 +58,27 @@ def makeWebhookResult(req):
     }
 
 def parseHtml(url):
+    print("1")
     listDish = "You may try the following:\n\n"
+    print("2")
     page = requests.get(url)
+    print("3")
     parser = etree.HTMLParser()
+    print("4")
     tree = etree.parse(BytesIO(page.content), parser)
+    print("5")
     searchContainer = tree.xpath("//body/div[@class='site-container']/div[@class='site-inner']/div[@class='content-sidebar-wrap']/main[@class='content']/article")
     
+    print("6")
     for article in searchContainer:
         dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
         listDish += dish[0].text.strip().encode("utf-8") + "\n"
+
+    print("7")
     if listDish.strip() == "You may try the following:":
         listDish = "Cannot find any recipe"
+
+    print("8")
     return listDish
 
 if __name__ == '__main__':
