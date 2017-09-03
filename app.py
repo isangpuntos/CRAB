@@ -95,10 +95,12 @@ def parseHtml(url):
     for article in searchContainer:
         dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
         listDish += dish[0].text.strip().encode("utf-8") + "\n"
+
+    print("6")
     if listDish.strip() == "You may try the following:":
         listDish = "Cannot find any recipe"
 
-    print("6")
+    print("7")
     return listDish
 
 if __name__ == '__main__':
