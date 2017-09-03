@@ -13,7 +13,6 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from lxml import html
-from lxml import etree
 from io import StringIO, BytesIO
 
 # Flask app should start in global layout
@@ -56,7 +55,7 @@ def makeWebhookResult(req):
         # "contextOut": [],
         "source": "CRAB"
     }
-
+'''
 def parseHtml(url):
     print("1")
     listDish = "You may try the following:\n\n"
@@ -79,6 +78,20 @@ def parseHtml(url):
         listDish = "Cannot find any recipe"
 
     print("8")
+    return listDish
+'''
+def parseHtml(url):
+    listDish = "You may try the following:\n\n"
+    page = requests.get(url)
+    tree = html.fromstring(page.content)
+    searchContainer = tree.xpath("//body/div[@class='site-container']/div[@class='site-inner']/div[@class='content-sidebar-wrap']/main[@class='content']/article")
+    
+    for article in searchContainer:
+        dish = article.xpath("header[@class='entry-header']/h2[@class='entry-title']/a")
+        listDish += dish[0].text.strip().encode("utf-8") + "\n"
+    if listDish.strip() == "You may try the following:":
+        listDish = "Cannot find any recipe"
+
     return listDish
 
 if __name__ == '__main__':
